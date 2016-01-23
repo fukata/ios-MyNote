@@ -1,6 +1,12 @@
 # MyNote (iOSアプリ勉強用)
 ----
 
+# ビルド
+
+    $ bundle install
+    $ bundle exec pod install
+    $ // double click MyNote.xcworkspace
+
 # 機能 
 - リスト表示
 - 詳細(作成、編集)

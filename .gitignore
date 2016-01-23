@@ -46,3 +46,4 @@ Carthage/Build
 *.swp
 *.swo
 vendor
+Pods
