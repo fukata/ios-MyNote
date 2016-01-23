@@ -23,3 +23,8 @@
     - [Xcodeのグループとディレクトリ構成を同期させてくれるツール「Synx」 - tobioka.net - You Ain't Gonna Need It](http://tobioka.net/1091)']
 - sqlite3
     - [iOS SQLite Database](http://www.tutorialspoint.com/ios/ios_sqlite_database.htm)
+- delegate
+    - [[iOS] iOSのDelegateをしっかりと理解する ｜ Developers.IO](http://dev.classmethod.jp/smartphone/iphone/ios-delegate/) 
+- dataSource
+    - [iOS - UIViewControllerからUICollectionViewのDataSourceを分離し肥大化を防ぐ具体例 - Qiita](http://qiita.com/yimajo/items/f256477dce16900943f2) 
+    - [iOS UITableViewをつかってリストを表現する - momoto.github.io](http://momoto.github.io/blog/2014/01/04/introduction-to-uitableview-in-ios/)
