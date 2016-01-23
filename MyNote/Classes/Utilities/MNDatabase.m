@@ -89,10 +89,39 @@ static sqlite3_stmt *statement = nil;
             return -1;
         }
     }
-    return NO;
+    return -1;
 }
 
 - (BOOL) updateData:(NSString *)tableName :(NSInteger)dataId :(NSMutableDictionary *)data {
+    const char *dbpath = [databasePath UTF8String];
+    if (sqlite3_open(dbpath, &database) == SQLITE_OK) {
+        NSArray *keys = [data allKeys];
+        NSString *pairsStr = @"";
+        for (int i=0; i<keys.count; i++) {
+            if (i > 0) {
+                pairsStr = [pairsStr stringByAppendingString:@","];
+            }
+            NSString *key = keys[i];
+            pairsStr = [pairsStr stringByAppendingString:[NSString stringWithFormat:@"%@=\"%@\"", key, data[key]]];
+        }
+        
+        NSString *sql = [NSString stringWithFormat:@"update %@ set %@ where id = \"%ld\";", tableName, pairsStr, (long)dataId];
+        NSLog(@"sql=%@", sql);
+        
+        const char *stmt = [sql UTF8String];
+        sqlite3_prepare_v2(database, stmt,-1, &statement, NULL);
+        if (sqlite3_step(statement) == SQLITE_DONE) {
+            sqlite3_reset(statement);
+            sqlite3_close(database);
+            return YES;
+        } else {
+            NSString *errorMessage = [[NSString alloc] initWithUTF8String:(const char *)sqlite3_errmsg(database)];
+            NSLog(@"error=%@", errorMessage);
+            sqlite3_reset(statement);
+            sqlite3_close(database);
+            return NO;
+        }
+    }
     return NO;
 }
 
@@ -130,30 +159,31 @@ static sqlite3_stmt *statement = nil;
     return nil;
 }
 
-- (NSArray *) findDataWithId:(NSString *)tableName :(NSInteger *)dataId {
+- (NSDictionary *) findDataWithId:(NSString *)tableName :(NSInteger)dataId {
     const char *dbpath = [databasePath UTF8String];
     if (sqlite3_open(dbpath, &database) == SQLITE_OK)
     {
         NSString *querySQL = [NSString stringWithFormat: @"select * from %@", tableName];
         const char *query_stmt = [querySQL UTF8String];
-        NSMutableArray *resultArray = [[NSMutableArray alloc]init];
         if (sqlite3_prepare_v2(database, query_stmt, -1, &statement, NULL) == SQLITE_OK) {
+            int columnCount = sqlite3_column_count(statement);
+            NSMutableDictionary *row = nil;
             if (sqlite3_step(statement) == SQLITE_ROW) {
-                NSString *name = [[NSString alloc] initWithUTF8String:
-                                  (const char *) sqlite3_column_text(statement, 0)];
-                [resultArray addObject:name];
-                NSString *department = [[NSString alloc] initWithUTF8String:
-                                        (const char *) sqlite3_column_text(statement, 1)];
-                [resultArray addObject:department];
-                NSString *year = [[NSString alloc]initWithUTF8String:
-                                  (const char *) sqlite3_column_text(statement, 2)];
-                [resultArray addObject:year];
-                return resultArray;
+                row = [[NSMutableDictionary alloc] init];
+                for (int i=0; i<columnCount; i++) {
+                    NSString *columnName = [[NSString alloc] initWithUTF8String: (const char *) sqlite3_column_name(statement, i)];
+                    const char *rawValue = (const char *) sqlite3_column_text(statement, i);
+                    if (rawValue != NULL) {
+                        NSString *value = [[NSString alloc] initWithUTF8String: (const char *) sqlite3_column_text(statement, i)];
+                        [row setObject:value forKey:columnName];
+                    }
+                }
             } else {
                 NSLog(@"Not found");
-                return nil;
             }
             sqlite3_reset(statement);
+            sqlite3_close(database);
+            return row;
         }
     }
     return nil;

@@ -74,4 +74,12 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MNNoteDetailController *c = [[MNNoteDetailController alloc] init];
+    NSMutableDictionary *data = [_items objectAtIndex:indexPath.row];
+    [c setEditMode:MN_NOTE_EDIT_MODE_EDIT];
+    [c setNoteId:[data[@"id"] integerValue]];
+    [[self navigationController] pushViewController:c animated:YES];   
+}
+
 @end

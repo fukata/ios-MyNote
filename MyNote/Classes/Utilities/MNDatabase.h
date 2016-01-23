@@ -24,7 +24,7 @@
 -(BOOL) updateData:(NSString *) tableName :(NSInteger) dataId :(NSMutableDictionary *) data;
 -(BOOL) deleteData:(NSString *) tableName :(NSInteger) dataId;
 -(NSArray*) findData:(NSString *) tableName;
--(NSArray*) findDataWithId:(NSString *) tableName :(NSInteger *)dataId;
+-(NSDictionary*) findDataWithId:(NSString *) tableName :(NSInteger)dataId;
 
 @end
 

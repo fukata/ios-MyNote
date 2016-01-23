@@ -18,20 +18,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     NSLog(@"MNNoteDetailController.viewWillAppear");
-    switch (_editMode) {
-        case MN_NOTE_EDIT_MODE_ADD:
-            [self.navigationItem setTitle:@"Add"];
-            break;
-        case MN_NOTE_EDIT_MODE_EDIT:
-            [self.navigationItem setTitle:@"Edit"];
-            break;
-        case MN_NOTE_EDIT_MODE_SHOW:
-            [self.navigationItem setTitle:@"Show"];
-            break;
-        default:
-            NSLog(@"Invalid edit mode.");
-            break;
-    }
     
     NSMutableArray<UIBarButtonItem *> *rightItems = [[NSMutableArray alloc] init];
     UIBarButtonItem *saveNoteButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveNoteDidTouchDown)];
@@ -41,6 +27,23 @@
     _textView = [[UITextView alloc] init];
     self.view = _textView;
     self.view.autoresizesSubviews = YES;
+    
+    switch (_editMode) {
+        case MN_NOTE_EDIT_MODE_ADD:
+            [self.navigationItem setTitle:@"Add"];
+            break;
+        case MN_NOTE_EDIT_MODE_EDIT:
+            [self.navigationItem setTitle:@"Edit"];
+            NSDictionary *data = [[MNDatabase getSHaredInstance] findDataWithId:MN_TABLE_NOTES :_noteId];
+            [_textView setText:data[@"content"]];
+            break;
+//        case MN_NOTE_EDIT_MODE_SHOW:
+//            [self.navigationItem setTitle:@"Show"];
+//            break;
+//        default:
+//            NSLog(@"Invalid edit mode.");
+//            break;
+    }
 }
 
 - (void) saveNoteDidTouchDown {
@@ -57,9 +60,15 @@
             } else {
                 NSLog(@"Failed");
             }
-            
             break;
         case MN_NOTE_EDIT_MODE_EDIT:
+            [data setObject:[_textView text] forKey:@"content"];
+            BOOL updated = [[MNDatabase getSHaredInstance] updateData:MN_TABLE_NOTES :_noteId :data];
+            if (updated > 0) {
+                NSLog(@"Successful");
+            } else {
+                NSLog(@"Failed");
+            }
             break;
         default:
             break;
