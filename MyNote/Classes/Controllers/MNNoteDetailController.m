@@ -49,12 +49,15 @@
     switch (_editMode) {
         case MN_NOTE_EDIT_MODE_ADD:
             [data setObject:[_textView text] forKey:@"content"];
-            BOOL inserted = [[MNDatabase getSHaredInstance] insertData:MN_TABLE_NOTES :data];
-            if (inserted) {
+            NSInteger rowId = [[MNDatabase getSHaredInstance] insertData:MN_TABLE_NOTES :data];
+            if (rowId > 0) {
                 NSLog(@"Successful");
+                [self setEditMode:MN_NOTE_EDIT_MODE_EDIT];
+                [self setNoteId:rowId];
             } else {
                 NSLog(@"Failed");
             }
+            
             break;
         case MN_NOTE_EDIT_MODE_EDIT:
             break;

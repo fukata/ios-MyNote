@@ -20,7 +20,7 @@
 
 +(MNDatabase*) getSHaredInstance;
 -(BOOL) createDb;
--(BOOL) insertData:(NSString *) tableName :(NSMutableDictionary *) data;
+-(NSInteger) insertData:(NSString *) tableName :(NSMutableDictionary *) data;
 -(BOOL) updateData:(NSString *) tableName :(NSInteger) dataId :(NSMutableDictionary *) data;
 -(BOOL) deleteData:(NSString *) tableName :(NSInteger) dataId;
 -(NSArray*) findData:(NSString *) tableName;

@@ -57,7 +57,7 @@ static sqlite3_stmt *statement = nil;
     return isSuccess;
 }
 
-- (BOOL) insertData: (NSString *)tableName :(NSMutableDictionary *)data {
+- (NSInteger) insertData: (NSString *)tableName :(NSMutableDictionary *)data {
     const char *dbpath = [databasePath UTF8String];
     if (sqlite3_open(dbpath, &database) == SQLITE_OK) {
         NSArray *keys = [data allKeys];
@@ -77,15 +77,16 @@ static sqlite3_stmt *statement = nil;
         const char *insert_stmt = [insertSql UTF8String];
         sqlite3_prepare_v2(database, insert_stmt,-1, &statement, NULL);
         if (sqlite3_step(statement) == SQLITE_DONE) {
+            NSInteger rowId = sqlite3_last_insert_rowid(database);
             sqlite3_reset(statement);
             sqlite3_close(database);
-            return YES;
+            return rowId;
         } else {
             NSString *errorMessage = [[NSString alloc] initWithUTF8String:(const char *)sqlite3_errmsg(database)];
             NSLog(@"error=%@", errorMessage);
             sqlite3_reset(statement);
             sqlite3_close(database);
-            return NO;
+            return -1;
         }
     }
     return NO;
