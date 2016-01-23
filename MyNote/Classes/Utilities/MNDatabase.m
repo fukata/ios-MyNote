@@ -67,8 +67,7 @@ static sqlite3_stmt *statement = nil;
             if (i > 0) {
                 valuesStr = [valuesStr stringByAppendingString:@","];
             }
-            NSString *key = keys[i];
-            valuesStr = [valuesStr stringByAppendingString:[NSString stringWithFormat:@"\"%@\"", data[key]]];
+            valuesStr = [valuesStr stringByAppendingString:@"?"];
         }
         
         NSString *insertSql = [NSString stringWithFormat:@"insert into %@ (%@) values (%@);", tableName, keysStr, valuesStr];
@@ -76,6 +75,9 @@ static sqlite3_stmt *statement = nil;
         
         const char *insert_stmt = [insertSql UTF8String];
         sqlite3_prepare_v2(database, insert_stmt,-1, &statement, NULL);
+        for (int i=0; i<keys.count; i++) {
+            sqlite3_bind_text(statement, i+1, [data[keys[i]] UTF8String], -1, SQLITE_TRANSIENT);
+        }
         if (sqlite3_step(statement) == SQLITE_DONE) {
             NSInteger rowId = sqlite3_last_insert_rowid(database);
             sqlite3_reset(statement);
@@ -102,7 +104,7 @@ static sqlite3_stmt *statement = nil;
                 pairsStr = [pairsStr stringByAppendingString:@","];
             }
             NSString *key = keys[i];
-            pairsStr = [pairsStr stringByAppendingString:[NSString stringWithFormat:@"%@=\"%@\"", key, data[key]]];
+            pairsStr = [pairsStr stringByAppendingString:[NSString stringWithFormat:@"%@=?", key]];
         }
         
         NSString *sql = [NSString stringWithFormat:@"update %@ set %@ where id = \"%ld\";", tableName, pairsStr, (long)dataId];
@@ -110,6 +112,9 @@ static sqlite3_stmt *statement = nil;
         
         const char *stmt = [sql UTF8String];
         sqlite3_prepare_v2(database, stmt,-1, &statement, NULL);
+        for (int i=0; i<keys.count; i++) {
+            sqlite3_bind_text(statement, i+1, [data[keys[i]] UTF8String], -1, SQLITE_TRANSIENT);
+        }
         if (sqlite3_step(statement) == SQLITE_DONE) {
             sqlite3_reset(statement);
             sqlite3_close(database);
