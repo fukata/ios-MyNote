@@ -8,6 +8,7 @@
 
 #import "MNNoteDetailController.h"
 #import "MNDatabase.h"
+#import <Toast/UIView+Toast.h>
 
 @implementation MNNoteDetailController
 
@@ -55,10 +56,16 @@
             NSInteger rowId = [[MNDatabase getSHaredInstance] insertData:MN_TABLE_NOTES :data];
             if (rowId > 0) {
                 NSLog(@"Successful");
+                [self.view makeToast:@"Successful"
+                           duration:3.0
+                           position:CSToastPositionCenter];
                 [self setEditMode:MN_NOTE_EDIT_MODE_EDIT];
                 [self setNoteId:rowId];
             } else {
                 NSLog(@"Failed");
+                [self.view makeToast:@"Failed"
+                           duration:3.0
+                           position:CSToastPositionCenter];
             }
             break;
         case MN_NOTE_EDIT_MODE_EDIT:
@@ -66,8 +73,14 @@
             BOOL updated = [[MNDatabase getSHaredInstance] updateData:MN_TABLE_NOTES :_noteId :data];
             if (updated > 0) {
                 NSLog(@"Successful");
+                [self.view makeToast:@"Successful"
+                           duration:3.0
+                           position:CSToastPositionCenter];
             } else {
                 NSLog(@"Failed");
+                [self.view makeToast:@"Failed"
+                           duration:3.0
+                           position:CSToastPositionCenter];
             }
             break;
         default:
