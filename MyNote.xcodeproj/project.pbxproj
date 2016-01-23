@@ -15,6 +15,8 @@
 		9E7C95041C53730600B6842E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E7C95021C53730600B6842E /* LaunchScreen.storyboard */; };
 		9E7C950F1C53730600B6842E /* MyNoteTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7C950E1C53730600B6842E /* MyNoteTests.m */; };
 		9E7C951A1C53730600B6842E /* MyNoteUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7C95191C53730600B6842E /* MyNoteUITests.m */; };
+		9E7C952F1C537F1400B6842E /* MNNoteListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7C952E1C537F1400B6842E /* MNNoteListController.m */; };
+		9E7C95321C53802E00B6842E /* MNNoteDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E7C95311C53802E00B6842E /* MNNoteDetailController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,10 @@
 		9E7C95151C53730600B6842E /* MyNoteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyNoteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E7C95191C53730600B6842E /* MyNoteUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyNoteUITests.m; sourceTree = "<group>"; };
 		9E7C951B1C53730600B6842E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E7C952E1C537F1400B6842E /* MNNoteListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNNoteListController.m; sourceTree = "<group>"; };
+		9E7C95301C537FF800B6842E /* MNNoteListController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MNNoteListController.h; sourceTree = "<group>"; };
+		9E7C95311C53802E00B6842E /* MNNoteDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNNoteDetailController.m; sourceTree = "<group>"; };
+		9E7C95331C53806200B6842E /* MNNoteDetailController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MNNoteDetailController.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,15 +108,15 @@
 			isa = PBXGroup;
 			children = (
 				9E7C95281C537E3400B6842E /* Classes */,
+				9E7C94F41C53730600B6842E /* Supporting Files */,
 				9E7C94F71C53730600B6842E /* AppDelegate.h */,
 				9E7C94F81C53730600B6842E /* AppDelegate.m */,
+				9E7C95001C53730600B6842E /* Assets.xcassets */,
+				9E7C95051C53730600B6842E /* Info.plist */,
+				9E7C95021C53730600B6842E /* LaunchScreen.storyboard */,
+				9E7C94FD1C53730600B6842E /* Main.storyboard */,
 				9E7C94FA1C53730600B6842E /* ViewController.h */,
 				9E7C94FB1C53730600B6842E /* ViewController.m */,
-				9E7C94FD1C53730600B6842E /* Main.storyboard */,
-				9E7C95001C53730600B6842E /* Assets.xcassets */,
-				9E7C95021C53730600B6842E /* LaunchScreen.storyboard */,
-				9E7C95051C53730600B6842E /* Info.plist */,
-				9E7C94F41C53730600B6842E /* Supporting Files */,
 			);
 			path = MyNote;
 			sourceTree = "<group>";
@@ -120,14 +126,14 @@
 			children = (
 				9E7C94F51C53730600B6842E /* main.m */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		9E7C950D1C53730600B6842E /* MyNoteTests */ = {
 			isa = PBXGroup;
 			children = (
-				9E7C950E1C53730600B6842E /* MyNoteTests.m */,
 				9E7C95101C53730600B6842E /* Info.plist */,
+				9E7C950E1C53730600B6842E /* MyNoteTests.m */,
 			);
 			path = MyNoteTests;
 			sourceTree = "<group>";
@@ -135,8 +141,8 @@
 		9E7C95181C53730600B6842E /* MyNoteUITests */ = {
 			isa = PBXGroup;
 			children = (
-				9E7C95191C53730600B6842E /* MyNoteUITests.m */,
 				9E7C951B1C53730600B6842E /* Info.plist */,
+				9E7C95191C53730600B6842E /* MyNoteUITests.m */,
 			);
 			path = MyNoteUITests;
 			sourceTree = "<group>";
@@ -144,32 +150,36 @@
 		9E7C95281C537E3400B6842E /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				9E7C952B1C537E4C00B6842E /* Views */,
 				9E7C952A1C537E4600B6842E /* Controllers */,
 				9E7C95291C537E3C00B6842E /* Models */,
+				9E7C952B1C537E4C00B6842E /* Views */,
 			);
-			name = Classes;
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		9E7C95291C537E3C00B6842E /* Models */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = Models;
+			path = Models;
 			sourceTree = "<group>";
 		};
 		9E7C952A1C537E4600B6842E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9E7C95331C53806200B6842E /* MNNoteDetailController.h */,
+				9E7C95311C53802E00B6842E /* MNNoteDetailController.m */,
+				9E7C95301C537FF800B6842E /* MNNoteListController.h */,
+				9E7C952E1C537F1400B6842E /* MNNoteListController.m */,
 			);
-			name = Controllers;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		9E7C952B1C537E4C00B6842E /* Views */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			name = Views;
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -304,7 +314,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E7C94FC1C53730600B6842E /* ViewController.m in Sources */,
+				9E7C95321C53802E00B6842E /* MNNoteDetailController.m in Sources */,
 				9E7C94F91C53730600B6842E /* AppDelegate.m in Sources */,
+				9E7C952F1C537F1400B6842E /* MNNoteListController.m in Sources */,
 				9E7C94F61C53730600B6842E /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -347,6 +359,7 @@
 				9E7C94FE1C53730600B6842E /* Base */,
 			);
 			name = Main.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 		9E7C95021C53730600B6842E /* LaunchScreen.storyboard */ = {
@@ -355,6 +368,7 @@
 				9E7C95031C53730600B6842E /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			path = .;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -529,6 +543,7 @@
 				9E7C95201C53730600B6842E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9E7C95211C53730600B6842E /* Build configuration list for PBXNativeTarget "MyNoteTests" */ = {
 			isa = XCConfigurationList;
@@ -537,6 +552,7 @@
 				9E7C95231C53730600B6842E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9E7C95241C53730600B6842E /* Build configuration list for PBXNativeTarget "MyNoteUITests" */ = {
 			isa = XCConfigurationList;
@@ -545,6 +561,7 @@
 				9E7C95261C53730600B6842E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

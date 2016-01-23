@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "MNNoteListController.h"
 
 @interface AppDelegate ()
 
@@ -17,6 +18,20 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    //TODO: Storyboardを使わない場合、ここにViewControllerの起動処理を書く。
+    //see: http://qiita.com/shou1471/items/637f7500698c3c5b0bc0
+    
+    // UIWindowの生成
+    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    self.window.backgroundColor = [UIColor whiteColor];
+    
+    // 最初に表示されるViewControllerを生成
+    MNNoteListController *c = [[MNNoteListController alloc] init];
+    //self.window.rootViewController = c;
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:c];
+    self.window.rootViewController = nc;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
