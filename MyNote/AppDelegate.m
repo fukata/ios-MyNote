@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "MNNoteListController.h"
+#import "MNDatabase.h"
 
 @interface AppDelegate ()
 

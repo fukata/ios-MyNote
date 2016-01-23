@@ -8,6 +8,7 @@
 
 #import "MNNoteListController.h"
 #import "MNNoteDetailController.h"
+#import "MNDatabase.h"
 
 @implementation MNNoteListController
 
@@ -15,6 +16,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSLog(@"MNNoteListController.viewDidLoad");
+    _items = [[NSMutableArray alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -26,9 +28,13 @@
     [rightItems addObject:addNoteButtonItem];
     [self.navigationItem setRightBarButtonItems:rightItems animated:YES];
     
-    UITableView *tableView = [[UITableView alloc] init];
-    self.view = tableView;
+    _tableView = [[UITableView alloc] init];
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    self.view = _tableView;
     self.view.autoresizesSubviews = YES;
+    
+    [self loadData];
 }
 
 - (void)addNoteDidTouchDown {
@@ -37,4 +43,35 @@
     [c setEditMode:MN_NOTE_EDIT_MODE_ADD];
     [[self navigationController] pushViewController:c animated:YES];
 }
+
+- (void)loadData {
+    NSLog(@"MNNoteListController.loadData");
+    NSArray *items = [[MNDatabase getSHaredInstance] findData:MN_TABLE_NOTES];
+    [_items removeAllObjects];
+    for (int i=0; i<items.count; i++) {
+        [_items addObject:[items objectAtIndex:i]];
+    }
+   
+    NSLog(@"items=%lu", (unsigned long)_items.count);
+    [_tableView reloadData];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [_items count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    NSString *identifier = @"notes";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    }
+    
+    NSMutableDictionary *data = [_items objectAtIndex:indexPath.row];
+    cell.textLabel.text = data[@"content"];
+    
+    return cell;
+}
+
 @end

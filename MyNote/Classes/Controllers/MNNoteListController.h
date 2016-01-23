@@ -11,9 +11,10 @@
 #ifndef MNNoteListController_h
 #define MNNoteListController_h
 
-@interface MNNoteListController : UIViewController
+@interface MNNoteListController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) NSMutableArray *items;
+@property (strong, nonatomic) UITableView *tableView;
 
 @end
 

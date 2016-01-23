@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 #ifndef MNNoteDetailController_h
 #define MNNoteDetailController_h
@@ -19,6 +20,7 @@
 
 @property (nonatomic) NSInteger editMode;
 @property (nonatomic) NSInteger noteId;
+@property (nonatomic, retain) UITextView *textView;
 
 - (void) setEditMode:(NSInteger)editMode;
 - (void) setNoteId:(NSInteger)noteId;

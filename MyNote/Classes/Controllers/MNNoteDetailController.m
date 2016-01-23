@@ -7,6 +7,7 @@
 //
 
 #import "MNNoteDetailController.h"
+#import "MNDatabase.h"
 
 @implementation MNNoteDetailController
 
@@ -37,13 +38,29 @@
     [rightItems addObject:saveNoteButtonItem];
     [self.navigationItem setRightBarButtonItems:rightItems animated:YES];
   
-    UITextView *textView = [[UITextView alloc] init];
-    self.view = textView;
+    _textView = [[UITextView alloc] init];
+    self.view = _textView;
     self.view.autoresizesSubviews = YES;
 }
 
 - (void) saveNoteDidTouchDown {
     NSLog(@"MNNoteDetailController.saveNoteDidTouchDown");
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
+    switch (_editMode) {
+        case MN_NOTE_EDIT_MODE_ADD:
+            [data setObject:[_textView text] forKey:@"content"];
+            BOOL inserted = [[MNDatabase getSHaredInstance] insertData:MN_TABLE_NOTES :data];
+            if (inserted) {
+                NSLog(@"Successful");
+            } else {
+                NSLog(@"Failed");
+            }
+            break;
+        case MN_NOTE_EDIT_MODE_EDIT:
+            break;
+        default:
+            break;
+    }
 }
 
 - (void) setEditMode:(NSInteger)editMode {
