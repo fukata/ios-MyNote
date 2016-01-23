@@ -7,6 +7,7 @@
 //
 
 #import "MNNoteListController.h"
+#import "MNNoteDetailController.h"
 
 @implementation MNNoteListController
 
@@ -32,5 +33,8 @@
 
 - (void)addNoteDidTouchDown {
     NSLog(@"MNNoteListController.addNoteDidTouchDown");
+    MNNoteDetailController *c = [[MNNoteDetailController alloc] init];
+    [c setEditMode:MN_NOTE_EDIT_MODE_ADD];
+    [[self navigationController] pushViewController:c animated:YES];
 }
 @end
