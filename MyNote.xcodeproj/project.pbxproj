@@ -101,6 +101,7 @@
 		9E7C94F31C53730600B6842E /* MyNote */ = {
 			isa = PBXGroup;
 			children = (
+				9E7C95281C537E3400B6842E /* Classes */,
 				9E7C94F71C53730600B6842E /* AppDelegate.h */,
 				9E7C94F81C53730600B6842E /* AppDelegate.m */,
 				9E7C94FA1C53730600B6842E /* ViewController.h */,
@@ -138,6 +139,37 @@
 				9E7C951B1C53730600B6842E /* Info.plist */,
 			);
 			path = MyNoteUITests;
+			sourceTree = "<group>";
+		};
+		9E7C95281C537E3400B6842E /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				9E7C952B1C537E4C00B6842E /* Views */,
+				9E7C952A1C537E4600B6842E /* Controllers */,
+				9E7C95291C537E3C00B6842E /* Models */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		9E7C95291C537E3C00B6842E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		9E7C952A1C537E4600B6842E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		9E7C952B1C537E4C00B6842E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,6 +234,7 @@
 		9E7C94E91C53730600B6842E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = MN;
 				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = fukata;
 				TargetAttributes = {
