@@ -133,7 +133,7 @@ static sqlite3_stmt *statement = nil;
     const char *dbpath = [databasePath UTF8String];
     if (sqlite3_open(dbpath, &database) == SQLITE_OK)
     {
-        NSString *querySQL = [NSString stringWithFormat: @"select * from %@", tableName];
+        NSString *querySQL = [NSString stringWithFormat: @"select * from %@ order by id desc", tableName];
         const char *query_stmt = [querySQL UTF8String];
         NSMutableArray *results = [[NSMutableArray alloc]init];
         if (sqlite3_prepare_v2(database, query_stmt, -1, &statement, NULL) == SQLITE_OK) {
@@ -163,7 +163,7 @@ static sqlite3_stmt *statement = nil;
     const char *dbpath = [databasePath UTF8String];
     if (sqlite3_open(dbpath, &database) == SQLITE_OK)
     {
-        NSString *querySQL = [NSString stringWithFormat: @"select * from %@", tableName];
+        NSString *querySQL = [NSString stringWithFormat: @"select * from %@ where id = \"%ld\"", tableName, dataId];
         const char *query_stmt = [querySQL UTF8String];
         if (sqlite3_prepare_v2(database, query_stmt, -1, &statement, NULL) == SQLITE_OK) {
             int columnCount = sqlite3_column_count(statement);
